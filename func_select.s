@@ -2,6 +2,7 @@
 .extern scanf
 .extern pstrlen
 .extern swapCase
+.extern pstrijcpy
 
 .section .rodata
 first_choice1:
@@ -112,19 +113,43 @@ run_func:
     subq $16, %rsp
 
     ##creating place in stack
-    leaq 8(%rbp), %rsi
-    leaq 16(%rbp), %rdx
+    leaq -8(%rbp), %rsi
+    leaq -16(%rbp), %rdx
 
     ##calling scanf with placing in stack
     call scanf
 
     ##moving input to registers
-    movq 8(%rbp), %r14
-    movq 16(%rbp), %r15
+    movq -8(%rbp), %r14
+    movq -16(%rbp), %r15
 
     ##checking if input is valid
+
+    ##if i>j
     cmpq %r14, %r15
     jb .invalid_task_three
+
+    ##if j>str1.len
+    movq %r12, %rdi
+    xorq %rax, %rax
+    call pstrlen
+    cmpq %r15, %rax
+    ja .invalid_task_three
+
+    ##if j>str2.len
+    movq %r13, %rdi
+    xorq %rax, %rax
+    call pstrlen
+    cmpq %r15, %rax
+    ja .invalid_task_three
+
+    ##mooving arguments to function
+    movq %r12, %rdi
+    movq %r13, %rsi
+    movq %r14, %rdx
+    movq %r15, %rcx
+    call pstrijcpy
+
 
     jmp .exit
 
@@ -134,7 +159,10 @@ run_func:
     movq $invalid, %rdi
     xorq %rax, %rax
     call printf
+    jmp .print_task_three:
 
+
+.print_task_three:
     ##printing the original size and string
 
     ##getting size of string
@@ -142,7 +170,7 @@ run_func:
     xorq %rax, %rax
     call pstrlen
 
-    ##printing result
+    ##printing string
     movq $third_choice, %rdi
     movq %rax, %rsi ##string length to 2 argument
     incq %r12
@@ -155,18 +183,16 @@ run_func:
     xorq %rax, %rax
     call pstrlen
 
-    ##printing result
+    ##printing string
     movq $third_choice, %rdi
     movq %rax, %rsi ##string length to 2 argument
     incq %r13
     movq %r13, %rdx #string
     xorq %rax, %rax
     call printf
-
-    
-    movq %rbp, %rsp
     jmp .exit
 
+##printing if the input is not in range
 .invalid_input:
     movq $invalid, %rdi
     xorq %rax, %rax
