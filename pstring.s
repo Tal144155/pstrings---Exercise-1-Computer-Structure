@@ -29,20 +29,24 @@ swapCase:
 
     ##if value is lower or equal than 'Z', its defenitly capital
     cmpb $0x5A, %al
-    jbe .capital
+    jle .capital
 
     ##if the value is higher or equal to 'a', its small
     cmpb $0x61, %al
-    jae .small
+    jge .small
 
 .capital:
     ##changing upper to small
+    cmpb $0x20, %al
+    je .next
     addb $0x20, %al
     movb %al, (%rdi)
     jmp .next
 
 .small:
     ##changing small to upper
+    cmpb $0x20, %al
+    je .next
     subb $0x20, %al
     movb %al, (%rdi)
     jmp .next
@@ -68,7 +72,7 @@ pstrijcpy:
 
     ##saving pointer to start of word
     movq %rdi, %r8
-    
+
     ##incrementing pointer to remove length from struct
     incq %rdi
     incq %rsi
