@@ -110,7 +110,7 @@ run_func:
     ##scaning two numbers
     xorq %rax, %rax
     movq $scanf_fmt, %rdi
-    subq $16, %rsp
+    subq $32, %rsp
 
     ##creating place in stack
     leaq -8(%rbp), %rsi
@@ -121,37 +121,38 @@ run_func:
 
     ##moving input to registers
     movq -8(%rbp), %r14
-    movq -16(%rbp), %r15
+    movq %rsi, %r15
 
     ##checking if input is valid
 
     ##if i>j
     cmpq %r14, %r15
-    jb .invalid_task_three
+    jl .invalid_task_three
 
     ##if j>str1.len
     movq %r12, %rdi
     xorq %rax, %rax
     call pstrlen
     cmpq %r15, %rax
-    ja .invalid_task_three
+    jl .invalid_task_three
 
     ##if j>str2.len
     movq %r13, %rdi
     xorq %rax, %rax
     call pstrlen
     cmpq %r15, %rax
-    ja .invalid_task_three
+    jl .invalid_task_three
 
     ##mooving arguments to function
     movq %r12, %rdi
     movq %r13, %rsi
     movq %r14, %rdx
     movq %r15, %rcx
+    xorq %rax, %rax
     call pstrijcpy
 
-
-    jmp .exit
+    movq %rax, %r12
+    jmp .print_task_three
 
 
 .invalid_task_three:
@@ -159,7 +160,7 @@ run_func:
     movq $invalid, %rdi
     xorq %rax, %rax
     call printf
-    jmp .print_task_three:
+    jmp .print_task_three
 
 
 .print_task_three:

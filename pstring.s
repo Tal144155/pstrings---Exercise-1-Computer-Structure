@@ -63,5 +63,49 @@ swapCase:
 .type pstrijcpy, @function
 
 pstrijcpy:
+    pushq %rbp
+    movq %rsp, %rbp
+
+    ##saving pointer to start of word
+    movq %rdi, %r8
+    
+    ##incrementing pointer to remove length from struct
+    incq %rdi
+    incq %rsi
+
+
+    ##incrementing by i
+    addq %rdx, %rdi
+    addq %rdx, %rsi
+
+    subq $1, %rdx
+
+    ## %rdx will be our counter
+.loop_three:
+
+    ##check condition
+    cmpq %rdx, %rcx
+    je .exit_three
+
+    # take first byte from string in %rsi to %rdi
+    movb (%rsi), %al
+
+    ##moving from %al to (%rdi)
+    movb %al, (%rdi)
+    jmp .next_three
+
+
+.next_three:
+    # Increment pointer, and continue
+    incq %rdi
+    incq %rsi
+    incq %rdx
+    jmp .loop_three
+
+.exit_three:
+    movq %rbp, %rsp
+    popq %rbp
+    movq %r8, %rax
+    ret
 
 
