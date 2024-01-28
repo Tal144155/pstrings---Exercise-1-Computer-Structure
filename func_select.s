@@ -77,8 +77,8 @@ run_func:
 
     ##printing result
     movq $second_choice, %rdi
-    movq %rax, %rsi
-    movq %r13, %rdx
+    movq %rax, %rsi ##string length to 2 argument
+    movq %r13, %rdx #new string
     xorq %rax, %rax
     call printf
 
@@ -95,15 +95,17 @@ run_func:
 
     ##printing result
     movq $second_choice, %rdi
-    movq %rax, %rsi
-    movq %r14, %rdx
+    movq %rax, %rsi ##string length to 2 argument
+    movq %r14, %rdx #new string
     xorq %rax, %rax
     call printf
     jmp .exit
 
 .task_three:
-
-
+    ##scaning two numbers
+    xorq %rax, %rax
+    movq $scanf_fmt, %rdi
+    call scanf
     jmp .exit
 
 .invalid_input:

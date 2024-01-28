@@ -1,0 +1,4 @@
+pstrings
+main.o
+func_select.o
+pstring.o
