@@ -102,10 +102,69 @@ run_func:
     jmp .exit
 
 .task_three:
+    ##saving strings
+    movq %rsi, %r12
+    movq %rdx, %r13
+
     ##scaning two numbers
     xorq %rax, %rax
     movq $scanf_fmt, %rdi
+    subq $16, %rsp
+
+    ##creating place in stack
+    leaq 8(%rbp), %rsi
+    leaq 16(%rbp), %rdx
+
+    ##calling scanf with placing in stack
     call scanf
+
+    ##moving input to registers
+    movq 8(%rbp), %r14
+    movq 16(%rbp), %r15
+
+    ##checking if input is valid
+    cmpq %r14, %r15
+    jb .invalid_task_three
+
+    jmp .exit
+
+
+.invalid_task_three:
+    ##printing invalid option
+    movq $invalid, %rdi
+    xorq %rax, %rax
+    call printf
+
+    ##printing the original size and string
+
+    ##getting size of string
+    movq %r12, %rdi
+    xorq %rax, %rax
+    call pstrlen
+
+    ##printing result
+    movq $third_choice, %rdi
+    movq %rax, %rsi ##string length to 2 argument
+    incq %r12
+    movq %r12, %rdx #string
+    xorq %rax, %rax
+    call printf
+
+    ##getting size of string
+    movq %r13, %rdi
+    xorq %rax, %rax
+    call pstrlen
+
+    ##printing result
+    movq $third_choice, %rdi
+    movq %rax, %rsi ##string length to 2 argument
+    incq %r13
+    movq %r13, %rdx #string
+    xorq %rax, %rax
+    call printf
+
+    
+    movq %rbp, %rsp
     jmp .exit
 
 .invalid_input:
