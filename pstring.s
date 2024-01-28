@@ -36,17 +36,19 @@ swapCase:
     jge .small
 
 .capital:
-    ##changing upper to small
+    ##if equal to space character
     cmpb $0x20, %al
     je .next
+    ##changing upper to small
     addb $0x20, %al
     movb %al, (%rdi)
     jmp .next
 
 .small:
-    ##changing small to upper
+    ##if equal to space character
     cmpb $0x20, %al
     je .next
+    ##changing small to upper
     subb $0x20, %al
     movb %al, (%rdi)
     jmp .next
@@ -57,6 +59,7 @@ swapCase:
     jmp .loop
 
 .exit:
+    ##done with function, reset stack and return
     movq %rbp, %rsp
     popq %rbp
     movq %rsi, %rax
@@ -107,6 +110,7 @@ pstrijcpy:
     jmp .loop_three
 
 .exit_three:
+    ##done with function, reset stack and return
     movq %rbp, %rsp
     popq %rbp
     movq %r8, %rax
