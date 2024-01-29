@@ -40,9 +40,12 @@ run_func:
     cmpq $34, %rdi
     je .task_three
 
+    ##if user inserted something else
     jmp .invalid_input
 
 .task_one:
+
+    ##printing size of each pstring
     movq %rsi, %rdi ##moving first pstring to argument1
     movq %rdx, %r13 #saving second pstring
     xorq %rax, %rax
