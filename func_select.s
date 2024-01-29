@@ -76,14 +76,15 @@ run_func:
 
    
     ##getting size of string
-    movq %r13, %rdi
-    movq %rax, %r13 ##saving new string in r13
+    movq %rax, %rdi
+    movq %rax, %r13 ##saving new Pstring in r13
     xorq %rax, %rax
     call pstrlen
 
     ##printing result
     movq $second_choice, %rdi
     movq %rax, %rsi ##string length to 2 argument
+    incq %r13 ##getting only the string
     movq %r13, %rdx #new string
     xorq %rax, %rax
     call printf
@@ -94,7 +95,7 @@ run_func:
     call swapCase
 
     ##getting size of string
-    movq %r14, %rdi
+    movq %rax, %rdi
     movq %rax, %r14 ##saving new string in r14
     xorq %rax, %rax
     call pstrlen
@@ -102,6 +103,7 @@ run_func:
     ##printing result
     movq $second_choice, %rdi
     movq %rax, %rsi ##string length to 2 argument
+    incq %r14 ##getting only string
     movq %r14, %rdx #new string
     xorq %rax, %rax
     call printf

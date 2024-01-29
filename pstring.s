@@ -16,11 +16,13 @@ pstrlen:
 swapCase:
     pushq %rbp
     movq %rsp, %rbp
+    
+    ##saving pointer to start of word
+    movq %rdi, %rsi
+
     ##incrementing pointer to remove length from struct
     incq %rdi
 
-     ##saving pointer to start of word
-    movq %rdi, %rsi
 .loop:
     # take first byte from string in %rdi
     movb (%rdi), %al
