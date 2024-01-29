@@ -16,6 +16,8 @@ second_choice:
 third_choice:
     .string "length: %d, string: %s\n"
 invalid:
+    .string "invalid input!\n"
+invalid_task_three:
     .string "invalid option!\n"
 scanf_fmt:
     .string "%d%d"
@@ -140,6 +142,7 @@ run_func:
     movq %r12, %rdi
     xorq %rax, %rax
     call pstrlen
+    subq $1, %rax
     cmpq %r15, %rax
     jl .invalid_task_three
 
@@ -147,6 +150,7 @@ run_func:
     movq %r13, %rdi
     xorq %rax, %rax
     call pstrlen
+    subq $1, %rax
     cmpq %r15, %rax
     jl .invalid_task_three
 
@@ -164,7 +168,7 @@ run_func:
 
 .invalid_task_three:
     ##printing invalid option
-    movq $invalid, %rdi
+    movq $invalid_task_three, %rdi
     xorq %rax, %rax
     call printf
     jmp .print_task_three
