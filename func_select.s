@@ -120,12 +120,12 @@ run_func:
     call scanf
 
     ##moving input to registers
-    movq -8(%rbp), %r14
-    movq %rsi, %r15
+    movl -8(%rbp), %r14d
+    movl -16(%rbp), %r15d
 
     ##checking if input is valid
 
-    ##if i>j
+    ##if i>jS
     cmpq %r14, %r15
     jl .invalid_task_three
 
