@@ -154,6 +154,11 @@ run_func:
     cmpq %r15, %rax
     jl .invalid_task_three
 
+    ##if i<0
+    cmpq $0, %r14
+    jl .invalid_task_three
+
+
     ##mooving arguments to function
     movq %r12, %rdi
     movq %r13, %rsi
