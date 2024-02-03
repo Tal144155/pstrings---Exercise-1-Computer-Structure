@@ -4,9 +4,12 @@
 .globl pstrlen
 .type	pstrlen, @function
 pstrlen:
+    #pushing to stack
     pushq %rbp
     movq %rsp, %rbp
+    #moving first bit of pstring to al
     movb (%rdi), %al
+    #popping from stack
     movq %rbp, %rsp
     popq %rbp
     ret
