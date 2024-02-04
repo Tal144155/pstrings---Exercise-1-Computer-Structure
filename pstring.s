@@ -38,7 +38,7 @@ swapCase:
     cmpb $0x41, %al
     jl .next
 
-    ##if value is lower or equal than 'Z', check if higher
+    ##if value is lower or equal than 'Z', it is capital
     cmpb $0x5A, %al
     jle .capital
 
@@ -46,9 +46,11 @@ swapCase:
     cmpb $0x61, %al
     jl .next
 
+    ##if the value is lower than 'z', than its small
     cmpb $0x7A, %al
     jl .small
 
+    ##if not, jump to the next iteration
     jmp .next
 
 .capital:
