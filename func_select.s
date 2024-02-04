@@ -16,9 +16,9 @@ second_choice:
 third_choice:
     .string "length: %d, string: %s\n"
 invalid:
-    .string "invalid input!\n"
-invalid_task_three:
     .string "invalid option!\n"
+invalid_task_three:
+    .string "invalid input!\n"
 scanf_fmt:
     .string "%d%d"
 
