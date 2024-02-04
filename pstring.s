@@ -34,27 +34,30 @@ swapCase:
     cmpb $0x0, %al
     je .exit
 
-    ##if value is lower or equal than 'Z', its defenitly capital
+    ##check if lower than 'A'
+    cmpb $0x41, %al
+    jl .next
+
+    ##if value is lower or equal than 'Z', check if higher
     cmpb $0x5A, %al
     jle .capital
 
-    ##if the value is higher or equal to 'a', its small
+    ##if the value is lower than 'a', jump to next
     cmpb $0x61, %al
-    jge .small
+    jl .next
+
+    cmpb $0x7A, %al
+    jl .small
+
+    jmp .next
 
 .capital:
-    ##if equal to space character
-    cmpb $0x20, %al
-    je .next
     ##changing upper to small
     addb $0x20, %al
     movb %al, (%rdi)
     jmp .next
 
 .small:
-    ##if equal to space character
-    cmpb $0x20, %al
-    je .next
     ##changing small to upper
     subb $0x20, %al
     movb %al, (%rdi)
