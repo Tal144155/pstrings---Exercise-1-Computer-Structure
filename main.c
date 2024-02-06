@@ -8,7 +8,7 @@ extern void run_func(int choice, Pstring *pstr1, Pstring *pstr2);
 void get_pstring(Pstring *pstr) {
 	/* Get pstring length */
 	printf("Enter Pstring length: ");
-	scanf("%hhd", &pstr->len);
+	scanf("%hhu", &pstr->len);
 
 	/* Flush stdin buffer */
 	int c;
