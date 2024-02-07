@@ -48,7 +48,7 @@ swapCase:
 
     ##if the value is lower than 'z', than its small
     cmpb $0x7A, %al
-    jl .small
+    jle .small
 
     ##if not, jump to the next iteration
     jmp .next
