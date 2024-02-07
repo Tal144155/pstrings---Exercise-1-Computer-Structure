@@ -20,7 +20,7 @@ invalid:
 invalid_task_three:
     .string "invalid input!\n"
 scanf_fmt:
-    .string "%d%d"
+    .string "%u%u"
 
 .section .text
 .globl run_func
@@ -136,7 +136,7 @@ run_func:
 
     ##if i>jS
     cmpq %r14, %r15
-    jl .invalid_task_three
+    jb .invalid_task_three
 
     ##if j>str1.len
     movq %r12, %rdi
@@ -144,7 +144,7 @@ run_func:
     call pstrlen
     subq $1, %rax
     cmpq %r15, %rax
-    jl .invalid_task_three
+    jb .invalid_task_three
 
     ##if j>str2.len
     movq %r13, %rdi
@@ -152,11 +152,11 @@ run_func:
     call pstrlen
     subq $1, %rax
     cmpq %r15, %rax
-    jl .invalid_task_three
+    jb .invalid_task_three
 
     ##if i<0
     cmpq $0, %r14
-    jl .invalid_task_three
+    jb .invalid_task_three
 
 
     ##mooving arguments to function
