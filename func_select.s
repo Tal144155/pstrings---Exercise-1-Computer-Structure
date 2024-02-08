@@ -159,7 +159,7 @@ run_func:
     jb .invalid_task_three
 
 
-    ##mooving arguments to function
+    ##mooving arguments to function and calling it
     movq %r12, %rdi
     movq %r13, %rsi
     movq %r14, %rdx
