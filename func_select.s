@@ -20,7 +20,7 @@ invalid:
 invalid_task_three:
     .string "invalid input!\n"
 scanf_fmt:
-    .string "%u%u"
+    .string "%hhu%hhu"
 
 .section .text
 .globl run_func
@@ -127,10 +127,13 @@ run_func:
 
     ##calling scanf with placing in stack
     call scanf
+    
+    xorq %r14, %r14
+    xorq %r15, %r15
 
     ##moving input to registers
-    movl -8(%rbp), %r14d
-    movl -16(%rbp), %r15d
+    movb -8(%rbp), %r14b
+    movb -16(%rbp), %r15b
 
     ##checking if input is valid
 
