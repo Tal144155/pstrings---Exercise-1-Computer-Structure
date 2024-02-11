@@ -4,6 +4,8 @@
 .globl pstrlen
 .type	pstrlen, @function
 pstrlen:
+    ##function recives pstring in rdi, and returns it length
+
     #pushing to stack
     pushq %rbp
     movq %rsp, %rbp
@@ -17,6 +19,8 @@ pstrlen:
 .globl swapCase
 .type swapCase, @function
 swapCase:
+    ##function recives pstring in rdi and swap small letters to capital and vice versa
+
     pushq %rbp
     movq %rsp, %rbp
     
@@ -82,6 +86,9 @@ swapCase:
 .type pstrijcpy, @function
 
 pstrijcpy:
+    ##function recives: both pstrings and i, j and copy from one string to another
+
+    
     pushq %rbp
     movq %rsp, %rbp
 

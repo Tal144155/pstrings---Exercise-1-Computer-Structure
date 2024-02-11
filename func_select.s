@@ -58,6 +58,7 @@ run_func:
     mov %rax, %rsi
     call printf
 
+    ##getting size of second string
     movq %r13, %rdi
     xorq %rax, %rax
     call pstrlen
@@ -170,6 +171,7 @@ run_func:
     xorq %rax, %rax
     call pstrijcpy
 
+    ##jumping to print the result
     movq %rax, %r12
     jmp .print_task_three
 
@@ -183,7 +185,7 @@ run_func:
 
 
 .print_task_three:
-    ##printing the original size and string
+    ##printing the size and string
 
     ##getting size of string
     movq %r12, %rdi
@@ -192,7 +194,7 @@ run_func:
 
     ##printing string
     movq $third_choice, %rdi
-    movq %rax, %rsi ##string length to 2 argument
+    movq %rax, %rsi ##string length to second argument
     incq %r12
     movq %r12, %rdx #string
     xorq %rax, %rax
@@ -205,7 +207,7 @@ run_func:
 
     ##printing string
     movq $third_choice, %rdi
-    movq %rax, %rsi ##string length to 2 argument
+    movq %rax, %rsi ##string length to second argument
     incq %r13
     movq %r13, %rdx #string
     xorq %rax, %rax
